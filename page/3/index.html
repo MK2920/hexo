@@ -191,7 +191,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/02/24/linux/linux-search_log/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/04/24/linux-vmware-install/linux-init-system/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -205,7 +205,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/02/24/linux/linux-search_log/" class="post-title-link" itemprop="url">linux 系统 查询并筛选日志返回结果</a>
+            <a href="/2022/04/24/linux-vmware-install/linux-init-system/" class="post-title-link" itemprop="url">ubuntu20.04.4</a>
         </h2>
 
         <div class="post-meta">
@@ -216,7 +216,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-02-24 00:00:00 / 修改时间：15:01:43" itemprop="dateCreated datePublished" datetime="2022-02-24T00:00:00+08:00">2022-02-24</time>
+              <time title="创建时间：2022-04-24 12:38:00 / 修改时间：12:38:52" itemprop="dateCreated datePublished" datetime="2022-04-24T12:38:00+08:00">2022-04-24</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -239,16 +239,39 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h4 id="搜索-THINKPHP-的-SQL-耗时范围"><a href="#搜索-THINKPHP-的-SQL-耗时范围" class="headerlink" title="搜索 THINKPHP 的 SQL 耗时范围"></a>搜索 THINKPHP 的 SQL 耗时范围</h4><ul>
-<li>thinkphp 的 SQL 日志记录格式为<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[2022-02-14T10:00:35+08:00][sql] SELECT * FROM &#96;eb_system_config&#96; WHERE  &#96;menu_name&#96; &#x3D; &#39;site_logo&#39; LIMIT 1 [ RunTime:0.002698s ]</span><br><span class="line">[2022-02-14T10:00:35+08:00][sql] SELECT * FROM &#96;eb_system_menus&#96; WHERE  &#96;is_show&#96; &#x3D; 1  AND &#96;access&#96; &#x3D; 1 ORDER BY &#96;sort&#96; DESC [ RunTime:0.001589s ]</span><br><span class="line">[2022-02-14T10:00:35+08:00][sql] SELECT &#96;menu_name&#96;,&#96;value&#96; FROM &#96;eb_system_config&#96; [ RunTime:0.000803s ]</span><br><span class="line">[2022-02-14T10:00:35+08:00][sql] SELECT * FROM &#96;eb_system_config&#96; WHERE  &#96;menu_name&#96; &#x3D; &#39;cache_config&#39; LIMIT 1 [ RunTime:0.000413s ]</span><br><span class="line">[2022-02-14T10:00:35+08:00][sql] SHOW FULL COLUMNS FROM &#96;eb_system_role&#96; [ RunTime:0.001837s ]</span><br><span class="line">[2022-02-14T10:00:35+08:00][sql] SELECT &#96;role_name&#96; FROM &#96;eb_system_role&#96; WHERE  &#96;id&#96; &#x3D; 1 LIMIT 1 [ RunTime:0.002040s ]</span><br></pre></td></tr></table></figure></li>
-<li>查询命令<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat &#x2F;log&#x2F;*.log | awk -F &#39;RunTime:&#39; &#39;&#123;print $2&#125;&#39; | awk -F &#39;s&#39; &#39;&#123;print $1&#125;&#39; | awk &#39;$NF&gt;0.002&#123;print $NF&#125;&#39; | wc -l</span><br></pre></td></tr></table></figure></li>
-<li>详解<ul>
-<li>cat /log/*.log<br>输出 /log 目录下的所有 .log 文件</li>
-<li>| awk -F ‘RunTime:’ ‘{print $2}’<br>输出内容后 , 以 <code>Runtime:</code> 为关键字进行切割 , 得到两部分内容 , <code>Runtime:</code> 之前是 <code>$1</code> , 我们需要的是 Runtime 之后的执行时间 , 所以取 <code>$2</code> , 如 <code>0.002040s ]</code> .</li>
-<li>| awk -F ‘s’ ‘{print $1}’<br>以 <code>s</code> 为关键字进行切割 , 并取切割后的第一部分内容 , 即每条记录的执行时间 , 如 <code>0.002040</code></li>
-<li>| awk ‘$NF&gt;0.002{print $NF}’<br>拿到执行时间 <code>$NF</code> 后和 <code>0.002</code> 对比 , 如果条件成立 , 则输出 <code>$NF</code></li>
-<li>| wc -l<br>统计符合条件的数量</li>
+          <h3 id="安装-nginx"><a href="#安装-nginx" class="headerlink" title="安装 nginx"></a>安装 nginx</h3><ul>
+<li>创建新的虚拟机</li>
+<li>vmware设置<ul>
+<li>配置类型选择 典型</li>
+<li>稍后安装系统</li>
+<li>操作系统选择 Linux , 版本选择 Ubuntu 64位</li>
+<li>命名<br><img src="https://kimiadai-1253350770.cos.ap-chengdu.myqcloud.com/202204/clipboard_20220420_044627.png" alt="image"></li>
+<li>指定磁盘容量</li>
+<li>自定义硬件<ul>
+<li>设置 网络适配器 为桥接模式</li>
+<li>设置 CD/DVD 为指定的 ISO 映像文件 <a target="_blank" rel="noopener" href="https://mirrors.aliyun.com/ubuntu-releases/">下载地址</a><br><img src="https://kimiadai-1253350770.cos.ap-chengdu.myqcloud.com/202204/clipboard_20220420_045045.png" alt="image"></li>
 </ul>
+</li>
+<li>完成</li>
+</ul>
+</li>
+</ul>
+<h3 id="安装-ubuntu"><a href="#安装-ubuntu" class="headerlink" title="安装 ubuntu"></a>安装 ubuntu</h3><ul>
+<li>开启此虚拟机</li>
+<li>按回车键选择语言</li>
+<li>由于不可描述的原因 , 修改阿里云安装源<br><img src="https://kimiadai-1253350770.cos.ap-chengdu.myqcloud.com/202204/clipboard_20220420_045727.png" alt="image"></li>
+<li>如果没有特殊需求 , 无需修改硬盘配置 , 使用默认配置</li>
+<li>创建用户 , 输入用户名和密码<br><img src="https://kimiadai-1253350770.cos.ap-chengdu.myqcloud.com/202204/clipboard_20220420_050044.png" alt="image"></li>
+<li>等待安装完成重启</li>
+</ul>
+<h3 id="安装完成后配置"><a href="#安装完成后配置" class="headerlink" title="安装完成后配置"></a>安装完成后配置</h3><ul>
+<li><p>查看 IP 地址<br><code>ip addr</code><br><img src="https://kimiadai-1253350770.cos.ap-chengdu.myqcloud.com/202204/clipboard_20220420_051240.png" alt="image"></p>
+</li>
+<li><p>修改默认设置 , 绑定静态 IP<br><code>ls /etc/netplan/</code><br><img src="https://kimiadai-1253350770.cos.ap-chengdu.myqcloud.com/202204/clipboard_20220420_051610.png" alt="image"><br>使用编辑工具编辑该配置文件<br><code>sudo vi /etc/netplan/00-installer-config.yaml</code><br><img src="https://kimiadai-1253350770.cos.ap-chengdu.myqcloud.com/202204/clipboard_20220420_053035.png" alt="image"></p>
+</li>
+<li><p>应用<br><code>sudo netplan apply</code></p>
+</li>
+<li><p>查看是否配置成功<br><code>ip addr</code><br><img src="https://kimiadai-1253350770.cos.ap-chengdu.myqcloud.com/202204/clipboard_20220420_053253.png" alt="image"></p>
 </li>
 </ul>
 
@@ -269,7 +292,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/35/">35</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/37/">37</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -335,20 +358,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

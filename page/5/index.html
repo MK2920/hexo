@@ -191,7 +191,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/02/25/block%20chain/hyperledger%20fabric/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/02/24/linux/linux-search_log/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -205,7 +205,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/02/25/block%20chain/hyperledger%20fabric/" class="post-title-link" itemprop="url">Hyperledger Fabric</a>
+            <a href="/2022/02/24/linux/linux-search_log/" class="post-title-link" itemprop="url">linux 系统 查询并筛选日志返回结果</a>
         </h2>
 
         <div class="post-meta">
@@ -216,7 +216,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-02-25 15:07:00 / 修改时间：15:41:28" itemprop="dateCreated datePublished" datetime="2021-02-25T15:07:00+08:00">2021-02-25</time>
+              <time title="创建时间：2022-02-24 00:00:00 / 修改时间：15:01:43" itemprop="dateCreated datePublished" datetime="2022-02-24T00:00:00+08:00">2022-02-24</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -224,7 +224,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/block-chain/" itemprop="url" rel="index"><span itemprop="name">block chain</span></a>
+                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
                 </span>
             </span>
 
@@ -239,12 +239,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>Hyperledger Fabric是一个开放源代码的企业级许可分布式账本技术（DLT）平台，设计用于企业环境，与其他流行的分布式账本或区块链平台相比，它提供了一些关键的区分功能。</p>
-<h3 id="Hyperledger-Fabric-结构模型"><a href="#Hyperledger-Fabric-结构模型" class="headerlink" title="Hyperledger Fabric 结构模型"></a>Hyperledger Fabric 结构模型</h3><h4 id="资产-Assets"><a href="#资产-Assets" class="headerlink" title="资产 Assets"></a>资产 Assets</h4><p>资产范围从有形资产（房地产和硬件）到无形资产（合同和知识产权）。Hyperledger Fabric提供了使用链码交易修改资产的功能。<br>资产在Hyperledger Fabric中表示为键值对的集合，状态更改记录为通道 分类账中的事务。资产可以二进制和/或JSON形式表示。</p>
-<h4 id="链码-Chaincode"><a href="#链码-Chaincode" class="headerlink" title="链码 Chaincode"></a>链码 Chaincode</h4><p>Chaincode是定义一项或多项资产的软件，以及用于修改资产的交易指令；换句话说，这是业务逻辑。Chaincode强制执行用于读取或更改键值对或其他状态数据库信息的规则。链码功能针对分类帐的当前状态数据库执行，并通过交易建议启动。链码执行产生了一组键值写操作（写集），这些键值写操作可以提交给网络，并应用于所有对等方的分类帐中。</p>
-<h4 id="分类账-Ledger-Features"><a href="#分类账-Ledger-Features" class="headerlink" title="分类账 Ledger Features"></a>分类账 Ledger Features</h4><p>分类帐是结构中所有状态转换的有序，防篡改记录。状态转换是参与方提交的链码调用（“交易”）的结果。每个交易都会产生一组资产键值对，这些键值对会在创建，更新或删除时提交到分类账。</p>
-<p>分类帐由一个区块链（“ chain”）和一个状态数据库组成，该区块链将不可变的顺序记录存储在块中，该状态数据库用于维护当前的结构状态。每个通道有一个分类帐。每个对等方都为其所属的每个通道维护一个分类帐的副本</p>
-<h4 id="隐私-Private"><a href="#隐私-Private" class="headerlink" title="隐私 Private"></a>隐私 Private</h4><h4 id="安全和会员服务-Security-amp-Membership-Services"><a href="#安全和会员服务-Security-amp-Membership-Services" class="headerlink" title="安全和会员服务 Security &amp; Membership Services"></a>安全和会员服务 Security &amp; Membership Services</h4><h4 id="共识-Consensus"><a href="#共识-Consensus" class="headerlink" title="共识 Consensus"></a>共识 Consensus</h4>
+          <h4 id="搜索-THINKPHP-的-SQL-耗时范围"><a href="#搜索-THINKPHP-的-SQL-耗时范围" class="headerlink" title="搜索 THINKPHP 的 SQL 耗时范围"></a>搜索 THINKPHP 的 SQL 耗时范围</h4><ul>
+<li>thinkphp 的 SQL 日志记录格式为<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[2022-02-14T10:00:35+08:00][sql] SELECT * FROM &#96;eb_system_config&#96; WHERE  &#96;menu_name&#96; &#x3D; &#39;site_logo&#39; LIMIT 1 [ RunTime:0.002698s ]</span><br><span class="line">[2022-02-14T10:00:35+08:00][sql] SELECT * FROM &#96;eb_system_menus&#96; WHERE  &#96;is_show&#96; &#x3D; 1  AND &#96;access&#96; &#x3D; 1 ORDER BY &#96;sort&#96; DESC [ RunTime:0.001589s ]</span><br><span class="line">[2022-02-14T10:00:35+08:00][sql] SELECT &#96;menu_name&#96;,&#96;value&#96; FROM &#96;eb_system_config&#96; [ RunTime:0.000803s ]</span><br><span class="line">[2022-02-14T10:00:35+08:00][sql] SELECT * FROM &#96;eb_system_config&#96; WHERE  &#96;menu_name&#96; &#x3D; &#39;cache_config&#39; LIMIT 1 [ RunTime:0.000413s ]</span><br><span class="line">[2022-02-14T10:00:35+08:00][sql] SHOW FULL COLUMNS FROM &#96;eb_system_role&#96; [ RunTime:0.001837s ]</span><br><span class="line">[2022-02-14T10:00:35+08:00][sql] SELECT &#96;role_name&#96; FROM &#96;eb_system_role&#96; WHERE  &#96;id&#96; &#x3D; 1 LIMIT 1 [ RunTime:0.002040s ]</span><br></pre></td></tr></table></figure></li>
+<li>查询命令<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat &#x2F;log&#x2F;*.log | awk -F &#39;RunTime:&#39; &#39;&#123;print $2&#125;&#39; | awk -F &#39;s&#39; &#39;&#123;print $1&#125;&#39; | awk &#39;$NF&gt;0.002&#123;print $NF&#125;&#39; | wc -l</span><br></pre></td></tr></table></figure></li>
+<li>详解<ul>
+<li>cat /log/*.log<br>输出 /log 目录下的所有 .log 文件</li>
+<li>| awk -F ‘RunTime:’ ‘{print $2}’<br>输出内容后 , 以 <code>Runtime:</code> 为关键字进行切割 , 得到两部分内容 , <code>Runtime:</code> 之前是 <code>$1</code> , 我们需要的是 Runtime 之后的执行时间 , 所以取 <code>$2</code> , 如 <code>0.002040s ]</code> .</li>
+<li>| awk -F ‘s’ ‘{print $1}’<br>以 <code>s</code> 为关键字进行切割 , 并取切割后的第一部分内容 , 即每条记录的执行时间 , 如 <code>0.002040</code></li>
+<li>| awk ‘$NF&gt;0.002{print $NF}’<br>拿到执行时间 <code>$NF</code> 后和 <code>0.002</code> 对比 , 如果条件成立 , 则输出 <code>$NF</code></li>
+<li>| wc -l<br>统计符合条件的数量</li>
+</ul>
+</li>
+</ul>
+
       
     </div>
 
@@ -262,7 +269,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/35/">35</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/37/">37</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -328,20 +335,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

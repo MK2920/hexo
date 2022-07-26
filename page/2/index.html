@@ -191,7 +191,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/04/19/linux-vmware-install/linux-vmware-install/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/07/26/docker/docker-rabbitmq/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -205,7 +205,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/04/19/linux-vmware-install/linux-vmware-install/" class="post-title-link" itemprop="url">vmware workerstation 安装 ubuntu20.04.4</a>
+            <a href="/2022/07/26/docker/docker-rabbitmq/" class="post-title-link" itemprop="url">docker 之 rabbitmq 安装部署</a>
         </h2>
 
         <div class="post-meta">
@@ -214,23 +214,21 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2022-04-19 17:15:00" itemprop="dateCreated datePublished" datetime="2022-04-19T17:15:00+08:00">2022-04-19</time>
+              <time title="创建时间：2022-07-26 11:49:00 / 修改时间：17:07:00" itemprop="dateCreated datePublished" datetime="2022-07-26T11:49:00+08:00">2022-07-26</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-04-20 17:34:03" itemprop="dateModified" datetime="2022-04-20T17:34:03+08:00">2022-04-20</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                  <a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/docker/rabbitmq/" itemprop="url" rel="index"><span itemprop="name">rabbitmq</span></a>
                 </span>
             </span>
 
@@ -245,40 +243,87 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="VMWARE"><a href="#VMWARE" class="headerlink" title="VMWARE"></a>VMWARE</h3><ul>
-<li>创建新的虚拟机</li>
-<li>vmware设置<ul>
-<li>配置类型选择 典型</li>
-<li>稍后安装系统</li>
-<li>操作系统选择 Linux , 版本选择 Ubuntu 64位</li>
-<li>命名<br><img src="https://kimiadai-1253350770.cos.ap-chengdu.myqcloud.com/202204/clipboard_20220420_044627.png" alt="image"></li>
-<li>指定磁盘容量</li>
-<li>自定义硬件<ul>
-<li>设置 网络适配器 为桥接模式</li>
-<li>设置 CD/DVD 为指定的 ISO 映像文件 <a target="_blank" rel="noopener" href="https://mirrors.aliyun.com/ubuntu-releases/">下载地址</a><br><img src="https://kimiadai-1253350770.cos.ap-chengdu.myqcloud.com/202204/clipboard_20220420_045045.png" alt="image"></li>
+          <h2 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h2><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>命令</th>
+<th>示例</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>检索</td>
+<td>docker search keyword</td>
+<td>docker search rabbitmq:management</td>
+<td>搜索 docker 镜像</td>
+</tr>
+<tr>
+<td>拉取</td>
+<td>docker pull keyword:tag</td>
+<td>docker pull rabbitmq:management</td>
+<td>拉取镜像 , 不指定 tag , 则默认拉取最新版</td>
+</tr>
+<tr>
+<td>列表</td>
+<td>docker images</td>
+<td>–</td>
+<td>查看本地仓库的所有镜像</td>
+</tr>
+<tr>
+<td>查看</td>
+<td>docker ps</td>
+<td>–</td>
+<td>查看运行中的容器</td>
+</tr>
+<tr>
+<td>启动</td>
+<td>docker start/stop/rm containerID</td>
+<td>–</td>
+<td>启动容器</td>
+</tr>
+<tr>
+<td>删除</td>
+<td>docker rmi imageId</td>
+<td>docker rmi 640s2d2w8hx5sw</td>
+<td>删除 docker 镜像</td>
+</tr>
+</tbody></table>
+<h2 id="搜索安装-rabbitmq"><a href="#搜索安装-rabbitmq" class="headerlink" title="搜索安装 rabbitmq"></a>搜索安装 rabbitmq</h2><ul>
+<li><p>搜索 rabbitmq</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker search rabbitmq:management</span><br></pre></td></tr></table></figure></li>
+<li><p>拉取</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull rabbitmq:management</span><br></pre></td></tr></table></figure></li>
+<li><p>查看镜像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure></li>
+<li><p>启动容器</p>
+<ul>
+<li><p>简单版</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 5672:5672 -p 15672:15672 --name rabbitmq rabbitmq:management</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>复杂版 (设置账户密码，hostname)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 15672:15672  -p  5672:5672  -e RABBITMQ_DEFAULT_USER=admin -e RABBITMQ_DEFAULT_PASS=admin --name rabbitmq --hostname=rabbitmqhostone  rabbitmq:management</span><br></pre></td></tr></table></figure></li>
+<li><p>通过 image ID 启动 , 其中 <code>13fa</code> 是 image ID 的前四位</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 15672:15672 -p 5672:5672 --name rabbitmq 13fa</span><br></pre></td></tr></table></figure>
+
+</li>
 </ul>
 </li>
-<li>完成</li>
 </ul>
+<h2 id="初始化设置"><a href="#初始化设置" class="headerlink" title="初始化设置"></a>初始化设置</h2><p>rabbitmq 默认用户名和密码都是 <code>guest</code> , 该账户远程网络访问受限 , 所以我们一般都会新增一个账户用来连接 .</p>
+<ul>
+<li><p>进入容器内部</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -i -t 91a0 bin/bash</span><br></pre></td></tr></table></figure>
+<p>其中 <code>91a0</code> 是容器ID 的前四位 , 容器ID 太长 , 无需全部写上</p>
 </li>
-</ul>
-<h3 id="安装-ubuntu"><a href="#安装-ubuntu" class="headerlink" title="安装 ubuntu"></a>安装 ubuntu</h3><ul>
-<li>开启此虚拟机</li>
-<li>按回车键选择语言</li>
-<li>由于不可描述的原因 , 修改阿里云安装源<br><img src="https://kimiadai-1253350770.cos.ap-chengdu.myqcloud.com/202204/clipboard_20220420_045727.png" alt="image"></li>
-<li>如果没有特殊需求 , 无需修改硬盘配置 , 使用默认配置</li>
-<li>创建用户 , 输入用户名和密码<br><img src="https://kimiadai-1253350770.cos.ap-chengdu.myqcloud.com/202204/clipboard_20220420_050044.png" alt="image"></li>
-<li>等待安装完成重启</li>
-</ul>
-<h3 id="安装完成后配置"><a href="#安装完成后配置" class="headerlink" title="安装完成后配置"></a>安装完成后配置</h3><ul>
-<li><p>查看 IP 地址<br><code>ip addr</code><br><img src="https://kimiadai-1253350770.cos.ap-chengdu.myqcloud.com/202204/clipboard_20220420_051240.png" alt="image"></p>
-</li>
-<li><p>修改默认设置 , 绑定静态 IP<br><code>ls /etc/netplan/</code><br><img src="https://kimiadai-1253350770.cos.ap-chengdu.myqcloud.com/202204/clipboard_20220420_051610.png" alt="image"><br>使用编辑工具编辑该配置文件<br><code>sudo vi /etc/netplan/00-installer-config.yaml</code><br><img src="https://kimiadai-1253350770.cos.ap-chengdu.myqcloud.com/202204/clipboard_20220420_053035.png" alt="image"></p>
-</li>
-<li><p>应用<br><code>sudo netplan apply</code></p>
-</li>
-<li><p>查看是否配置成功<br><code>ip addr</code><br><img src="https://kimiadai-1253350770.cos.ap-chengdu.myqcloud.com/202204/clipboard_20220420_053253.png" alt="image"></p>
-</li>
+<li><p>添加用户 , <code>admin</code> 是账号 , <code>25s14q</code> 是密码</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rabbitmqctl add_user admin 25s14q</span><br></pre></td></tr></table></figure></li>
+<li><p>设置用户权限 , 赋予 <code>admin</code> 用户所有权限</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rabbitmqctl set_permissions -p / admin &quot;.*&quot; &quot;.*&quot; &quot;.*&quot;</span><br></pre></td></tr></table></figure></li>
+<li><p>设置用户角色 , 赋予 <code>admin</code> 用户 <code>administrator</code> 角色</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rabbitmqctl set_user_tags admin administrator</span><br></pre></td></tr></table></figure></li>
+<li><p>查看用户设置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rabbitmqctl list_users</span><br></pre></td></tr></table></figure></li>
 </ul>
 
       
@@ -298,7 +343,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/35/">35</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/37/">37</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -364,20 +409,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

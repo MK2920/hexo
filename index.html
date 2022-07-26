@@ -191,7 +191,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/04/24/linux-vmware-install/linux-init-system/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/07/26/docker/docker-install/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -205,7 +205,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/04/24/linux-vmware-install/linux-init-system/" class="post-title-link" itemprop="url">ubuntu20.04.4</a>
+            <a href="/2022/07/26/docker/docker-install/" class="post-title-link" itemprop="url">安装 docker</a>
         </h2>
 
         <div class="post-meta">
@@ -216,7 +216,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-04-24 12:38:00 / 修改时间：12:38:52" itemprop="dateCreated datePublished" datetime="2022-04-24T12:38:00+08:00">2022-04-24</time>
+              <time title="创建时间：2022-07-26 11:49:00 / 修改时间：17:06:15" itemprop="dateCreated datePublished" datetime="2022-07-26T11:49:00+08:00">2022-07-26</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -224,7 +224,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                  <a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a>
                 </span>
             </span>
 
@@ -239,41 +239,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="安装-nginx"><a href="#安装-nginx" class="headerlink" title="安装 nginx"></a>安装 nginx</h3><ul>
-<li>创建新的虚拟机</li>
-<li>vmware设置<ul>
-<li>配置类型选择 典型</li>
-<li>稍后安装系统</li>
-<li>操作系统选择 Linux , 版本选择 Ubuntu 64位</li>
-<li>命名<br><img src="https://kimiadai-1253350770.cos.ap-chengdu.myqcloud.com/202204/clipboard_20220420_044627.png" alt="image"></li>
-<li>指定磁盘容量</li>
-<li>自定义硬件<ul>
-<li>设置 网络适配器 为桥接模式</li>
-<li>设置 CD/DVD 为指定的 ISO 映像文件 <a target="_blank" rel="noopener" href="https://mirrors.aliyun.com/ubuntu-releases/">下载地址</a><br><img src="https://kimiadai-1253350770.cos.ap-chengdu.myqcloud.com/202204/clipboard_20220420_045045.png" alt="image"></li>
-</ul>
-</li>
-<li>完成</li>
-</ul>
+          <h1 id="CentOS"><a href="#CentOS" class="headerlink" title="CentOS"></a>CentOS</h1><h3 id="系统要求"><a href="#系统要求" class="headerlink" title="系统要求"></a>系统要求</h3><p>Docker 支持 64 位版本 CentOS 7/8，并且要求内核版本不低于 3.10。 CentOS 7 满足最低内核的要求，但由于内核版本比较低，部分功能（如 overlay2 存储层驱动）无法使用，并且部分功能可能不太稳定。</p>
+<h3 id="CentOS-使用-yum-安装"><a href="#CentOS-使用-yum-安装" class="headerlink" title="CentOS 使用 yum 安装"></a>CentOS 使用 yum 安装</h3><ul>
+<li>安装依赖<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y yum-utils</span><br></pre></td></tr></table></figure></li>
+<li>使用国内源<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 阿里源</span></span><br><span class="line">sudo yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br><span class="line">sudo sed -i &#x27;s/download.docker.com/mirrors.aliyun.com\/docker-ce/g&#x27; /etc/yum.repos.d/docker-ce.repo</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 官方源</span></span><br><span class="line">sudo yum-config-manager \</span><br><span class="line">     --add-repo \</span><br><span class="line">     https://download.docker.com/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure></li>
+<li>安装 docker<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install docker-ce docker-ce-cli containerd.io</span><br></pre></td></tr></table></figure></li>
+<li>启动 docker<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl enable docker</span><br><span class="line">sudo systemctl start docker</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
-<h3 id="安装-ubuntu"><a href="#安装-ubuntu" class="headerlink" title="安装 ubuntu"></a>安装 ubuntu</h3><ul>
-<li>开启此虚拟机</li>
-<li>按回车键选择语言</li>
-<li>由于不可描述的原因 , 修改阿里云安装源<br><img src="https://kimiadai-1253350770.cos.ap-chengdu.myqcloud.com/202204/clipboard_20220420_045727.png" alt="image"></li>
-<li>如果没有特殊需求 , 无需修改硬盘配置 , 使用默认配置</li>
-<li>创建用户 , 输入用户名和密码<br><img src="https://kimiadai-1253350770.cos.ap-chengdu.myqcloud.com/202204/clipboard_20220420_050044.png" alt="image"></li>
-<li>等待安装完成重启</li>
-</ul>
-<h3 id="安装完成后配置"><a href="#安装完成后配置" class="headerlink" title="安装完成后配置"></a>安装完成后配置</h3><ul>
-<li><p>查看 IP 地址<br><code>ip addr</code><br><img src="https://kimiadai-1253350770.cos.ap-chengdu.myqcloud.com/202204/clipboard_20220420_051240.png" alt="image"></p>
-</li>
-<li><p>修改默认设置 , 绑定静态 IP<br><code>ls /etc/netplan/</code><br><img src="https://kimiadai-1253350770.cos.ap-chengdu.myqcloud.com/202204/clipboard_20220420_051610.png" alt="image"><br>使用编辑工具编辑该配置文件<br><code>sudo vi /etc/netplan/00-installer-config.yaml</code><br><img src="https://kimiadai-1253350770.cos.ap-chengdu.myqcloud.com/202204/clipboard_20220420_053035.png" alt="image"></p>
-</li>
-<li><p>应用<br><code>sudo netplan apply</code></p>
-</li>
-<li><p>查看是否配置成功<br><code>ip addr</code><br><img src="https://kimiadai-1253350770.cos.ap-chengdu.myqcloud.com/202204/clipboard_20220420_053253.png" alt="image"></p>
-</li>
-</ul>
+<h3 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h3><p>CentOS8 防火墙使用了 <code>nftables</code>，但 <code>Docker</code> 尚未支持 <code>nftables</code>， 我们可以使用如下设置使用 <code>iptables</code>：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --permanent --zone=trusted --add-interface=docker0</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -292,7 +268,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/35/">35</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/37/">37</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -358,20 +334,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

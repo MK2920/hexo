@@ -917,4 +917,121 @@ D:/params.txt 的内容如下<figure class="highlight plain"><table><tr><td clas
 </tbody></table>
 ]]></content>
   </entry>
+  <entry>
+    <title>安装 docker</title>
+    <url>/2022/07/26/docker/docker-install/</url>
+    <content><![CDATA[<h1 id="CentOS"><a href="#CentOS" class="headerlink" title="CentOS"></a>CentOS</h1><h3 id="系统要求"><a href="#系统要求" class="headerlink" title="系统要求"></a>系统要求</h3><p>Docker 支持 64 位版本 CentOS 7/8，并且要求内核版本不低于 3.10。 CentOS 7 满足最低内核的要求，但由于内核版本比较低，部分功能（如 overlay2 存储层驱动）无法使用，并且部分功能可能不太稳定。</p>
+<h3 id="CentOS-使用-yum-安装"><a href="#CentOS-使用-yum-安装" class="headerlink" title="CentOS 使用 yum 安装"></a>CentOS 使用 yum 安装</h3><ul>
+<li>安装依赖<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum install -y yum-utils</span><br></pre></td></tr></table></figure></li>
+<li>使用国内源<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 阿里源</span></span><br><span class="line">sudo yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br><span class="line">sudo sed -i &#x27;s/download.docker.com/mirrors.aliyun.com\/docker-ce/g&#x27; /etc/yum.repos.d/docker-ce.repo</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 官方源</span></span><br><span class="line">sudo yum-config-manager \</span><br><span class="line">     --add-repo \</span><br><span class="line">     https://download.docker.com/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure></li>
+<li>安装 docker<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum install docker-ce docker-ce-cli containerd.io</span><br></pre></td></tr></table></figure></li>
+<li>启动 docker<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo systemctl enable docker</span><br><span class="line">sudo systemctl start docker</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h3><p>CentOS8 防火墙使用了 <code>nftables</code>，但 <code>Docker</code> 尚未支持 <code>nftables</code>， 我们可以使用如下设置使用 <code>iptables</code>：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">firewall-cmd --permanent --zone=trusted --add-interface=docker0</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>docker</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>docker 之 rabbitmq 安装部署</title>
+    <url>/2022/07/26/docker/docker-rabbitmq/</url>
+    <content><![CDATA[<h2 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h2><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>命令</th>
+<th>示例</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>检索</td>
+<td>docker search keyword</td>
+<td>docker search rabbitmq:management</td>
+<td>搜索 docker 镜像</td>
+</tr>
+<tr>
+<td>拉取</td>
+<td>docker pull keyword:tag</td>
+<td>docker pull rabbitmq:management</td>
+<td>拉取镜像 , 不指定 tag , 则默认拉取最新版</td>
+</tr>
+<tr>
+<td>列表</td>
+<td>docker images</td>
+<td>–</td>
+<td>查看本地仓库的所有镜像</td>
+</tr>
+<tr>
+<td>查看</td>
+<td>docker ps</td>
+<td>–</td>
+<td>查看运行中的容器</td>
+</tr>
+<tr>
+<td>启动</td>
+<td>docker start/stop/rm containerID</td>
+<td>–</td>
+<td>启动容器</td>
+</tr>
+<tr>
+<td>删除</td>
+<td>docker rmi imageId</td>
+<td>docker rmi 640s2d2w8hx5sw</td>
+<td>删除 docker 镜像</td>
+</tr>
+</tbody></table>
+<h2 id="搜索安装-rabbitmq"><a href="#搜索安装-rabbitmq" class="headerlink" title="搜索安装 rabbitmq"></a>搜索安装 rabbitmq</h2><ul>
+<li><p>搜索 rabbitmq</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker search rabbitmq:management</span><br></pre></td></tr></table></figure></li>
+<li><p>拉取</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker pull rabbitmq:management</span><br></pre></td></tr></table></figure></li>
+<li><p>查看镜像</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure></li>
+<li><p>启动容器</p>
+<ul>
+<li><p>简单版</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run -d -p 5672:5672 -p 15672:15672 --name rabbitmq rabbitmq:management</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>复杂版 (设置账户密码，hostname)</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run -d -p 15672:15672  -p  5672:5672  -e RABBITMQ_DEFAULT_USER=admin -e RABBITMQ_DEFAULT_PASS=admin --name rabbitmq --hostname=rabbitmqhostone  rabbitmq:management</span><br></pre></td></tr></table></figure></li>
+<li><p>通过 image ID 启动 , 其中 <code>13fa</code> 是 image ID 的前四位</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run -d -p 15672:15672 -p 5672:5672 --name rabbitmq 13fa</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="初始化设置"><a href="#初始化设置" class="headerlink" title="初始化设置"></a>初始化设置</h2><p>rabbitmq 默认用户名和密码都是 <code>guest</code> , 该账户远程网络访问受限 , 所以我们一般都会新增一个账户用来连接 .</p>
+<ul>
+<li><p>进入容器内部</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker exec -i -t 91a0 bin/bash</span><br></pre></td></tr></table></figure>
+<p>其中 <code>91a0</code> 是容器ID 的前四位 , 容器ID 太长 , 无需全部写上</p>
+</li>
+<li><p>添加用户 , <code>admin</code> 是账号 , <code>25s14q</code> 是密码</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rabbitmqctl add_user admin 25s14q</span><br></pre></td></tr></table></figure></li>
+<li><p>设置用户权限 , 赋予 <code>admin</code> 用户所有权限</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rabbitmqctl set_permissions -p / admin &quot;.*&quot; &quot;.*&quot; &quot;.*&quot;</span><br></pre></td></tr></table></figure></li>
+<li><p>设置用户角色 , 赋予 <code>admin</code> 用户 <code>administrator</code> 角色</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rabbitmqctl set_user_tags admin administrator</span><br></pre></td></tr></table></figure></li>
+<li><p>查看用户设置</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rabbitmqctl list_users</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>docker</category>
+        <category>rabbitmq</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
+        <tag>rabbitmq</tag>
+      </tags>
+  </entry>
 </search>
